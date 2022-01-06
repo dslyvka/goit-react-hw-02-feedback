@@ -3,8 +3,6 @@ import FeedbackOptions from './components/FeedbackOptions/FeedbackOptions';
 import Notification from './components/Statistics/Notification';
 import { Component, Fragment } from 'react';
 
-let clicked = false;
-
 class App extends Component {
   state = {
     good: 0,
@@ -12,9 +10,8 @@ class App extends Component {
     bad: 0,
   };
 
-  onBtnClick = e => {
-    clicked = true;
-    const btn = e.currentTarget.value;
+  onBtnClick = value => {
+    const btn = value;
     this.setState(prevState => {
       return { [btn]: prevState[btn] + 1 };
     });
@@ -24,15 +21,12 @@ class App extends Component {
     const { good, neutral, bad } = this.state;
     const rating = (good / (good + bad + neutral)) * 100;
     const total = good + bad + neutral;
+    const options = Object.keys(this.state);
 
     return (
       <Fragment>
-        <FeedbackOptions
-          options={this.state}
-          onLeaveFeedback={this.onBtnClick}
-        />
-        {!clicked && <Notification />}
-        {clicked && (
+        <FeedbackOptions options={options} onLeaveFeedback={this.onBtnClick} />
+        {total ? (
           <Statistics
             good={good}
             neutral={neutral}
@@ -40,6 +34,8 @@ class App extends Component {
             total={total}
             positivePercentage={rating}
           />
+        ) : (
+          <Notification />
         )}
       </Fragment>
     );

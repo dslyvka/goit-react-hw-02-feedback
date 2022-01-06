@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import {ListStyled} from './FeedbackOptions.styled'
 
 function FeedbackOptions({ options, onLeaveFeedback }) {
-  const btns = Object.keys(options);
+  const btns = options;
   return (
     <Fragment>
       <h1 style={{ "textAlign": 'center'}}>Please leave feedback</h1>
@@ -11,7 +11,7 @@ function FeedbackOptions({ options, onLeaveFeedback }) {
           {btns.map(btn => {
             return (
               <li key={btn}>
-                <button value={btn} onClick={onLeaveFeedback}>
+                <button value={btn} onClick={() => onLeaveFeedback(btn)}>
                   {btn}
                 </button>
               </li>
