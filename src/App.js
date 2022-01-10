@@ -11,9 +11,8 @@ class App extends Component {
   };
 
   onBtnClick = value => {
-    const btn = value;
     this.setState(prevState => {
-      return { [btn]: prevState[btn] + 1 };
+      return { [value]: prevState[value] + 1 };
     });
   };
 
